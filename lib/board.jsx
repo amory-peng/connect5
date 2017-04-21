@@ -5,7 +5,7 @@ class Board extends React.Component {
   constructor() {
     super();
     this.gridSize = 10;
-    this.winCount = 3;
+    this.winCount = 5;
     this.state = { currentPlayer: "X",
                    grid: this.makeGrid(),
                    winner: null
@@ -72,7 +72,7 @@ class Board extends React.Component {
     //go foward;
     let x1 = x;
     let y1 = y;
-    while (this.inBounds(x1,y1) && grid[x1][y1] === grid[x1+deltaX][y1+deltaY]) {
+    while (this.inBounds(x1+deltaX,y1+deltaY) && grid[x1][y1] === grid[x1+deltaX][y1+deltaY]) {
       count += 1;
       x1 += deltaX;
       y1 += deltaY;
@@ -80,7 +80,7 @@ class Board extends React.Component {
     //gobackward
     x1 = x;
     y1 = y;
-    while (this.inBounds(x1,y1) && grid[x1][y1] === grid[x1-deltaX][y1-deltaY]) {
+    while (this.inBounds(x1-deltaX,y1-deltaY) && grid[x1][y1] === grid[x1-deltaX][y1-deltaY]) {
       count += 1;
       x1 -= deltaX;
       y1 -= deltaY;
