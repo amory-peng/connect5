@@ -1,9 +1,16 @@
 import React from 'react';
 import Tile from './tile';
 
+var express = require('express');
+var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+
 class Board extends React.Component {
   constructor() {
     super();
+    this.socket = io();
     this.gridSize = 10;
     this.winCount = 5;
     this.state = { currentPlayer: "X",
@@ -16,6 +23,7 @@ class Board extends React.Component {
   handleClick(pos) {
     const x = pos[0];
     const y = pos[1];
+    this.socket.emit("kappa");
     if (this.state.grid[x][y] === " ") {
       const newGrid = this.state.grid.slice(0);
       newGrid[x][y] = this.state.currentPlayer;
@@ -85,7 +93,6 @@ class Board extends React.Component {
       x1 -= deltaX;
       y1 -= deltaY;
     }
-    console.log(count);
     return count;
   }
 
