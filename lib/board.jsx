@@ -1,30 +1,34 @@
 import React from 'react';
 import Tile from './tile';
-
-var express = require('express');
-var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-
+//
 
 class Board extends React.Component {
   constructor() {
     super();
-    this.socket = io();
     this.gridSize = 10;
     this.winCount = 5;
+    this.socket = io();
     this.state = { currentPlayer: "X",
                    grid: this.makeGrid(),
                    winner: null
                   };
   }
 
+  componentWillMount() {
+    this.socket.on("received", msg => {
+      console.log(msg);
+    });
+  }
+
+  handleMsg(pos) {
+
+  }
 
   handleClick(pos) {
     const x = pos[0];
     const y = pos[1];
-    this.socket.emit("kappa");
     if (this.state.grid[x][y] === " ") {
+      this.socket.emit("boardChange", { pos, mark: this.state.currentPlayer });
       const newGrid = this.state.grid.slice(0);
       newGrid[x][y] = this.state.currentPlayer;
       const nextPlayer = this.state.currentPlayer === "X" ? "O" : "X";
@@ -140,6 +144,7 @@ class Board extends React.Component {
         <ul className="board">
           { this.renderGrid() }
         </ul>
+        <div>Reset Board</div>
         <div> { winText }</div>
       </div>
     );

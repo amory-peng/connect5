@@ -6,16 +6,15 @@ var io = require('socket.io')(http);
 
 app.use(express.static(__dirname));
 
-io.on('connection', function(socket) {
+io.on('connection', (socket) => {
   console.log("user connected");
+
+  socket.on('boardChange', (msg) => {
+    io.emit('received', msg);
+  });
 });
 
-io.on('connection', function(socket) {
-  socket.on('kappa', () => {
-    console.log('kappa');
-  })
-});
 
-http.listen(3000, function() {
+http.listen(3000, () => {
   console.log('listening on *:3000');
 });
