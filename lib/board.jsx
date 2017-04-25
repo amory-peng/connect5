@@ -1,40 +1,60 @@
 import React from 'react';
 import Tile from './tile';
+import { hashHistory } from 'react-router';
+import { GRID_SIZE } from '../vars';
 //
 
 class Board extends React.Component {
   constructor() {
     super();
-    this.gridSize = 10;
+    this.gridSize = GRID_SIZE;
     this.winCount = 5;
+    this.room = location.pathname;
     this.socket = io();
     this.state = { currentPlayer: "X",
                    grid: this.makeGrid(),
-                   winner: null
+                   winner: null,
                   };
   }
 
   componentWillMount() {
-    this.socket.on("received", msg => {
+    //socket stuff here
+    this.socket.emit('room', this.room);
+    this.socket.on('currentGrid', grid => {
+      this.setState({ grid });
+    });
+
+    this.socket.on("boardChange", msg => {
       console.log(msg);
+      this.handleMsg(msg);
+    });
+
+    this.socket.on("reset", () => {
+      this.setState({ grid: this.makeGrid() });
+    });
+
+    this.socket.on("receivedGrid", (grid) => {
+      this.setState({ grid });
     });
   }
 
-  handleMsg(pos) {
-
+  handleMsg(msg) {
+    const x = msg.pos[0];
+    const y = msg.pos[1];
+    const newGrid = this.state.grid.slice(0);
+    newGrid[x][y] = this.state.currentPlayer;
+    const nextPlayer = msg.mark === "X" ? "O" : "X";
+    this.setState({ grid: newGrid, currentPlayer: nextPlayer },
+      ()=> { this.findWinner(x,y); }
+    );
   }
 
   handleClick(pos) {
     const x = pos[0];
     const y = pos[1];
     if (this.state.grid[x][y] === " ") {
-      this.socket.emit("boardChange", { pos, mark: this.state.currentPlayer });
-      const newGrid = this.state.grid.slice(0);
-      newGrid[x][y] = this.state.currentPlayer;
-      const nextPlayer = this.state.currentPlayer === "X" ? "O" : "X";
-      this.setState({ grid: newGrid, currentPlayer: nextPlayer },
-        ()=> { this.findWinner(x,y); }
-      );
+      this.socket.emit( "boardChange",
+      { pos, mark: this.state.currentPlayer, room: this.room });
     }
   }
 
@@ -112,6 +132,10 @@ class Board extends React.Component {
     return grid;
   }
 
+  resetGrid() {
+    this.socket.emit('reset', this.room);
+  }
+
   renderGrid() {
     const out = [];
     let count = 0;
@@ -144,7 +168,7 @@ class Board extends React.Component {
         <ul className="board">
           { this.renderGrid() }
         </ul>
-        <div>Reset Board</div>
+        <div onClick={ this.resetGrid.bind(this) }>Reset</div>
         <div> { winText }</div>
       </div>
     );
