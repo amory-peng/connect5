@@ -21,7 +21,7 @@ class Board extends React.Component {
     //socket stuff here
     this.socket.emit('room', this.room);
     this.socket.on('currentGrid', grid => {
-      this.setState({ grid });
+      this.setState({ grid }, this.getCurrentPlayer);
     });
 
     this.socket.on("boardChange", msg => {
@@ -32,10 +32,21 @@ class Board extends React.Component {
     this.socket.on("reset", () => {
       this.setState({ grid: this.makeGrid() });
     });
+  }
 
-    this.socket.on("receivedGrid", (grid) => {
-      this.setState({ grid });
+  getCurrentPlayer() {
+    console.log("hit here");
+    const grid = this.state.grid;
+    let count = 0;
+    grid.forEach(row => {
+      row.forEach(el => {
+        if (el !== " ") count += 1;
+      });
     });
+    console.log(count);
+    let currentPlayer;
+    currentPlayer = (count % 2 === 0) ? "X" : "O";
+    this.setState({ currentPlayer });
   }
 
   handleMsg(msg) {
