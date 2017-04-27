@@ -22,10 +22,10 @@ const makeGrid = function() {
 
 app.use(express.static(__dirname));
 
-// app.get('/:room', (req, res) => {
-//   console.log(req.params);
-//   res.sendFile(path.join(__dirname, 'index.html'));
-// });
+app.get('*', (req, res) => {
+  console.log(req.params);
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 io.on('connection', (socket) => {
   socket.on('room', (room) => {
