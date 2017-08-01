@@ -1,1 +1,1 @@
-exports.GRID_SIZE = 10;
+exports.GRID_SIZE = 20;

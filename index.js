@@ -1,3 +1,5 @@
+'use strict';
+
 var GRID_SIZE = require('./vars').GRID_SIZE;
 var express = require('express');
 var app = express();

@@ -4,16 +4,51 @@
   box-sizing: border-box;
 }
 
+.container {
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+  justify-content: center;
+
+}
 .board {
-  width: 500px;
   display: flex;
   background: grey;
   flex-flow: row wrap;
+  width: 600px;
+}
+
+.info-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.info-container > * {
+  margin: 25px 50px;
+}
+
+.reset-button {
+  background: crimson;
+  border-radius: 5px;
+  color: white;
+  height: 40px;
+  width: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reset-button:hover {
+  cursor: pointer;
+  background: red;
 }
 
 div[class*="tile"] {
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   border: 1px solid black;
   display: flex;
   justify-content: center;

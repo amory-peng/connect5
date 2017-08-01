@@ -30,7 +30,7 @@ class Board extends React.Component {
     });
 
     this.socket.on("reset", () => {
-      this.setState({ grid: this.makeGrid() });
+      this.setState({ grid: this.makeGrid(), currentPlayer: "X" });
     });
   }
 
@@ -132,6 +132,7 @@ class Board extends React.Component {
   }
 
   makeGrid() {
+    console.log(this.gridSize);
     const grid = [];
     for (let i = 0; i < this.gridSize; i++) {
       const row = [];
@@ -140,6 +141,7 @@ class Board extends React.Component {
       }
       grid.push(row);
     }
+    console.log(grid);
     return grid;
   }
 
@@ -168,19 +170,27 @@ class Board extends React.Component {
   }
 
   render() {
+    window.state = this.state;
     let winText;
     if (this.state.winner) {
       winText = <div>Winner is { this.state.winner }!</div>;
     }
 
     return(
-      <div>
-        <div> Current Player: { this.state.currentPlayer }</div>
+      <div className="container">
+        <div className="info-container">
+          <div> Current Player: { this.state.currentPlayer }</div>
+          <div className="reset-button" onClick={ this.resetGrid.bind(this) }>
+            Reset
+          </div>
+        </div>
         <ul className="board">
           { this.renderGrid() }
         </ul>
-        <div onClick={ this.resetGrid.bind(this) }>Reset</div>
-        <div> { winText }</div>
+
+        <div>
+          { winText }
+        </div>
       </div>
     );
   }
