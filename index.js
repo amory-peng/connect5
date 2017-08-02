@@ -45,7 +45,6 @@ io.on('connection', (socket) => {
     const x = msg.pos[0];
     const y = msg.pos[1];
     boards[msg.room][x][y] = msg.mark;
-    console.log(boards[msg.room]);
     io.to(msg.room).emit('boardChange', msg);
   });
 
@@ -53,9 +52,13 @@ io.on('connection', (socket) => {
     boards[room] = makeGrid();
     io.to(room).emit('reset');
   });
+
+  socket.on('resync', (room) => {
+    io.to(room).emit('currentGrid', boards[room])
+  });
 });
 
 
-http.listen(process.env.PORT || 3000, () => {
-  console.log('listening on *:3000');
+http.listen(process.env.PORT || 4000, () => {
+  console.log('listening on *:4000');
 });

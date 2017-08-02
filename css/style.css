@@ -29,11 +29,11 @@
   margin: 25px 50px;
 }
 
-.reset-button {
+.button {
   background: crimson;
   border-radius: 5px;
   color: white;
-  height: 40px;
+  height: 35px;
   width: 60px;
 
   display: flex;
@@ -41,7 +41,7 @@
   justify-content: center;
 }
 
-.reset-button:hover {
+.button:hover {
   cursor: pointer;
   background: red;
 }

@@ -52,6 +52,7 @@ class Board extends React.Component {
   handleMsg(msg) {
     const x = msg.pos[0];
     const y = msg.pos[1];
+    console.log(msg);
     const newGrid = this.state.grid.slice(0);
     newGrid[x][y] = this.state.currentPlayer;
     const nextPlayer = msg.mark === "X" ? "O" : "X";
@@ -146,7 +147,13 @@ class Board extends React.Component {
   }
 
   resetGrid() {
-    this.socket.emit('reset', this.room);
+    this.setState({ winner: null}, () => {
+      this.socket.emit('reset', this.room);
+    });
+  }
+
+  resyncGrid() {
+    this.socket.emit('resync', this.room);
   }
 
   renderGrid() {
@@ -176,13 +183,19 @@ class Board extends React.Component {
       winText = <div>Winner is { this.state.winner }!</div>;
     }
 
+    let buttons = <div className="buttonContainer">
+      <div className="button" onClick={ this.resetGrid.bind(this) }>
+        Reset
+      </div>
+      <div className="button" onClick={ this.resyncGrid.bind(this) }>
+        Resync
+      </div>
+    </div>;
     return(
+
       <div className="container">
         <div className="info-container">
           <div> Current Player: { this.state.currentPlayer }</div>
-          <div className="reset-button" onClick={ this.resetGrid.bind(this) }>
-            Reset
-          </div>
         </div>
         <ul className="board">
           { this.renderGrid() }
