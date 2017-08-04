@@ -1,5 +1,4 @@
 'use strict';
-
 var GRID_SIZE = require('./vars').GRID_SIZE;
 var express = require('express');
 var app = express();
@@ -41,7 +40,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('boardChange', (msg) => {
-    console.log(msg.room);
+    console.log(msg);
     const x = msg.pos[0];
     const y = msg.pos[1];
     boards[msg.room][x][y] = msg.mark;
@@ -56,6 +55,11 @@ io.on('connection', (socket) => {
   socket.on('resync', (room) => {
     io.to(room).emit('currentGrid', boards[room])
   });
+
+  socket.on('sendMessage', (msg) => {
+    console.log(msg);
+    io.to(msg.room).emit('receiveMessage', msg);
+  })
 });
 
 

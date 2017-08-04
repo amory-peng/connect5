@@ -4,6 +4,9 @@
   box-sizing: border-box;
 }
 
+body {
+}
+
 .container {
   display: flex;
   align-items: center;
@@ -11,11 +14,20 @@
   justify-content: center;
 
 }
+
+.gameContainer {
+  flex-flow: row;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+
 .board {
   display: flex;
   background: grey;
   flex-flow: row wrap;
   width: 600px;
+  margin-left: 100px;
 }
 
 .info-container {
@@ -65,8 +77,39 @@ div[class*="tile"] {
   background: blue;
 }
 
-
-
 .tile:hover {
   background: white;
+}
+
+.chatContainer {
+  display: flex;
+  flex-flow: column;
+  height: 100vh;
+  width: 350px;
+  border: 1px solid black;
+}
+
+.chatForm {
+  width: 100%;
+  height: 10%;
+}
+
+.messageList {
+  display: flex;
+  flex-flow: column-reverse;
+  height: 90%;
+  overflow-y: auto;
+}
+
+.message {
+  display: flex;
+  width: 100%;
+}
+.chatForm__input {
+  height: 100%;
+  width: 80%;
+}
+
+.chatForm__submit {
+  width: 20%;
 }

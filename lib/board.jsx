@@ -5,12 +5,12 @@ import { GRID_SIZE } from '../vars';
 //
 
 class Board extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.gridSize = GRID_SIZE;
     this.winCount = 5;
     this.room = location.pathname;
-    this.socket = io();
+    this.socket = this.props.socket;
     this.state = { currentPlayer: "X",
                    grid: this.makeGrid(),
                    winner: null,
@@ -25,7 +25,6 @@ class Board extends React.Component {
     });
 
     this.socket.on("boardChange", msg => {
-      console.log(msg);
       this.handleMsg(msg);
     });
 
@@ -35,7 +34,6 @@ class Board extends React.Component {
   }
 
   getCurrentPlayer() {
-    console.log("hit here");
     const grid = this.state.grid;
     let count = 0;
     grid.forEach(row => {
@@ -52,7 +50,6 @@ class Board extends React.Component {
   handleMsg(msg) {
     const x = msg.pos[0];
     const y = msg.pos[1];
-    console.log(msg);
     const newGrid = this.state.grid.slice(0);
     newGrid[x][y] = this.state.currentPlayer;
     const nextPlayer = msg.mark === "X" ? "O" : "X";
@@ -196,6 +193,7 @@ class Board extends React.Component {
       <div className="container">
         <div className="info-container">
           <div> Current Player: { this.state.currentPlayer }</div>
+          { buttons }
         </div>
         <ul className="board">
           { this.renderGrid() }

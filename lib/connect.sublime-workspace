@@ -1,0 +1,311 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"group_book",
+				"group_book"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "packa",
+		"selected_items":
+		[
+			[
+				"packa",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 139.0,
+		"history":
+		[
+			"print(\"hi\")",
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/amoryp/git/Goodreads/rails-root/app/gulp/javascripts/react_components/preview_book/wrong_book_report_acknowledgment.js.jsx",
+		"/Users/amoryp/git/Goodreads/rails-root/app/views/poll/shared/_poll_form.html.erb",
+		"/Users/amoryp/git/Goodreads/rails-root/app/views/poll/new.html.erb",
+		"/Users/amoryp/git/Goodreads/rails-root/app/controllers/poll_controller.rb",
+		"/Users/amoryp/git/Goodreads/rails-root/app/models/poll.rb",
+		"/Users/amoryp/git/Goodreads/rails-root/app/models/poll_answer.rb",
+		"/Users/amoryp/git/Goodreads/rails-root/app/views/metadata_answers/shared/_form.haml",
+		"/Users/amoryp/git/Goodreads/rails-root/app/controllers/metadata_answers_controller.rb",
+		"/Users/amoryp/git/Goodreads/rails-root/app/models/metadata_answer.rb",
+		"/Users/amoryp/git/Goodreads/rails-root/app/controllers/group_controller.rb",
+		"/Users/amoryp/git/Goodreads/rails-root/app/models/group_user.rb",
+		"/Users/amoryp/git/Goodreads/rails-root/app/models/group_book.rb",
+		"/Users/amoryp/git/Goodreads/rails-root/test/functional/group_controller_test.rb",
+		"/Users/amoryp/git/Goodreads/rails-root/app/models/user_preference.rb",
+		"/Users/amoryp/git/Goodreads/rails-root/test/unit/lib/plugins/acts_as_commentable/acts_as_commentable_test.rb",
+		"/Users/amoryp/git/Goodreads/rails-root/test/unit/helpers/choice_awards_helper_test.rb",
+		"/Users/amoryp/git/Goodreads/rails-root/test/unit/helpers/api/choice_awards_helper_test.rb",
+		"/Users/amoryp/git/Goodreads/rails-root/test/functional/poll_controller_test.rb",
+		"/Users/amoryp/git/Goodreads/rails-root/test/make_helpers.rb",
+		"/Users/amoryp/git/Goodreads/rails-root/app/models/update_array.rb",
+		"/Users/amoryp/git/Goodreads/rails-root/test/unit/comment_test.rb",
+		"/Users/amoryp/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Users/amoryp/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
+	],
+	"find":
+	{
+		"height": 25.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"def message_params",
+			"message_params",
+			"resource_id",
+			"params[:poll]",
+			"poll.resource",
+			"featured",
+			"def update",
+			"group_book_params",
+			"poll",
+			"groupbook.make",
+			"pollanswer",
+			"PollAnswer",
+			"poll_answer",
+			"make_choice_awards_poll",
+			"poll_answer",
+			"voting",
+			"pollanswer",
+			"poll.new_answers",
+			"groupbook.new",
+			"group_book_params",
+			"private",
+			"groupbook.new",
+			"trim_trailing_white_space_on_save",
+			"asdf",
+			"adsf"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "connect.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"board.jsx",
+				"app/gulp/javascripts/react_components/preview_book/wrong_book_report_acknowledgment.js.jsx"
+			],
+			[
+				"pollsharedform",
+				"app/views/poll/shared/_poll_form.html.erb"
+			],
+			[
+				"viewspollnew",
+				"app/views/poll/new.html.erb"
+			],
+			[
+				"pollcontroller",
+				"app/controllers/poll_controller.rb"
+			],
+			[
+				"poll",
+				"app/models/poll.rb"
+			],
+			[
+				"pollanswer",
+				"app/models/poll_answer.rb"
+			],
+			[
+				"formhaml",
+				"app/views/metadata_answers/shared/_form.haml"
+			],
+			[
+				"metadataanswercontroller",
+				"app/controllers/metadata_answers_controller.rb"
+			],
+			[
+				"metadata",
+				"app/models/metadata_answer.rb"
+			],
+			[
+				"groupuser",
+				"app/models/group_user.rb"
+			],
+			[
+				"groupbook",
+				"app/models/group_book.rb"
+			],
+			[
+				"groupcontroller",
+				"app/controllers/group_controller.rb"
+			],
+			[
+				"makehelpers",
+				"test/make_helpers.rb"
+			],
+			[
+				"pollcontrollertest",
+				"test/functional/poll_controller_test.rb"
+			],
+			[
+				"choiceawardshelper",
+				"test/unit/helpers/api/choice_awards_helper_test.rb"
+			],
+			[
+				"choiceawardshelpertest",
+				"test/unit/helpers/choice_awards_helper_test.rb"
+			],
+			[
+				"actsascommentabletest",
+				"test/unit/lib/plugins/acts_as_commentable/acts_as_commentable_test.rb"
+			],
+			[
+				"commenttest",
+				"test/unit/comment_test.rb"
+			],
+			[
+				"userpreference",
+				"app/models/user_preference.rb"
+			],
+			[
+				"",
+				"app/models/user_preference.rb"
+			],
+			[
+				"userpreferene",
+				"app/models/user_preference.rb"
+			],
+			[
+				"uercontroller",
+				"app/controllers/user_controller.rb"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
