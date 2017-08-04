@@ -61,9 +61,12 @@ class Board extends React.Component {
   handleClick(pos) {
     const x = pos[0];
     const y = pos[1];
+    const currentPlayer = this.state.currentPlayer;
     if (this.state.grid[x][y] === " ") {
       this.socket.emit( "boardChange",
-      { pos, mark: this.state.currentPlayer, room: this.room });
+        { pos, mark: this.state.currentPlayer, room: this.room });
+      this.socket.emit("sendMessage",
+        { userName: currentPlayer, messageText: `selected ${pos}`, room: this.room });
     }
   }
 
