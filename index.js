@@ -29,14 +29,19 @@ app.get('*', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  socket.on('room', (room) => {
-    console.log('player joined');
+  let playerCount = 0;
+  socket.on('board', (room) => {
+    playerCount += 1;
     socket.join(room);
     if (boards[room]) {
       io.to(room).emit('currentGrid', boards[room]);
     } else {
       boards[room] = makeGrid();
     }
+    io.to(room).emit('receiveMessage',
+                     { userName: "Server",
+                       messageText: `player count: ${playerCount}`,
+                       room });
   });
 
   socket.on('boardChange', (msg) => {
@@ -59,7 +64,15 @@ io.on('connection', (socket) => {
   socket.on('sendMessage', (msg) => {
     console.log(msg);
     io.to(msg.room).emit('receiveMessage', msg);
-  })
+  });
+
+  socket.on('disconnect', (room) => {
+    playerCount -= 1;
+    io.to(room).emit('receiveMessage',
+                     { userName: "Server",
+                       messageText: `player count: ${playerCount}`,
+                       room });
+  });
 });
 
 

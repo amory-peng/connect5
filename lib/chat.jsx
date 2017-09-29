@@ -9,6 +9,7 @@ class Chat extends React.Component {
     this.state = { messages: [], userName: "" };
     this.socket = this.props.socket;
     this.room = location.pathname;
+    this.bannedNames = new Set(["Server", "server"]);
     this.renderChatForm = this.renderChatForm.bind(this);
     this.renderMessages = this.renderMessages.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
@@ -19,7 +20,7 @@ class Chat extends React.Component {
     //socket stuff
     this.socket.on("receiveMessage", (msg) => {
       let newMessages = this.state.messages.slice(0);
-      newMessages.unshift(msg);
+      newMessages.push(msg);
       this.setState({ messages: newMessages });
     });
   }
@@ -35,14 +36,16 @@ class Chat extends React.Component {
   }
 
   setUserName(userName) {
-    console.log("hit here");
-    this.setState({ userName }, () => {
-    this.sendMessage(`${userName} has joined.`);
-    });
+    if (this.bannedNames.has(userName)) {
+      alert("username can't be used");
+    } else {
+      this.setState({ userName }, () => {
+        this.sendMessage(`${userName} has joined.`);
+      });
+    }
   }
 
   sendMessage(msg) {
-    console.log(`${this.state.userName}: ${msg}`);
     let message = { userName: this.state.userName, messageText: msg, room: this.room };
     this.socket.emit("sendMessage", message);
   }
@@ -51,8 +54,6 @@ class Chat extends React.Component {
     let messages = this.state.messages.map((message, idx) => {
       return <li className="messageContainer" key={ idx }><Message msg={ message } /></li>;
     });
-    console.log("rendering messages...");
-    console.log(messages);
     return messages;
   }
 

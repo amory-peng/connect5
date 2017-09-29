@@ -19,7 +19,7 @@ class Board extends React.Component {
 
   componentWillMount() {
     //socket stuff here
-    this.socket.emit('room', this.room);
+    this.socket.emit('board', this.room);
     this.socket.on('currentGrid', grid => {
       this.setState({ grid }, this.getCurrentPlayer);
     });
@@ -31,6 +31,10 @@ class Board extends React.Component {
     this.socket.on("reset", () => {
       this.setState({ grid: this.makeGrid(), currentPlayer: "X" });
     });
+  }
+
+  componentWillUnmount() {
+    this.socket.emit('disconnect', this.room);
   }
 
   getCurrentPlayer() {
@@ -192,8 +196,7 @@ class Board extends React.Component {
       </div>
     </div>;
     return(
-
-      <div className="container">
+      <div className="boardContainer">
         <div className="info-container">
           <div> Current Player: { this.state.currentPlayer }</div>
           { buttons }
