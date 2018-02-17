@@ -5,6 +5,13 @@ class Tile extends React.Component {
     super(props);
   }
 
+  componentWillMount() {
+    // adjust tile to window size
+    const windowHeight = window.innerHeight;
+    const windowWidth = window.innerWidth;
+    
+  }
+
   render() {
     let tileColor = "tile";
     if (this.props.value === "X") {
@@ -12,7 +19,7 @@ class Tile extends React.Component {
     } else if (this.props.value === "O") {
       tileColor = "tile-blue";
     }
-    
+
     return(
       <div className={ tileColor } onClick={this.props.onClick}>
         { this.props.value }

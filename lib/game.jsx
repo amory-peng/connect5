@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import Board from './board';
-import Chat from './chat';
+// import Chat from './chat';
 
 const socket = io();
 
@@ -15,7 +15,7 @@ class Game extends React.Component {
     return(
     <div className={ gameClass }>
       <Board socket={ socket }/>
-      <Chat socket={ socket }/>
+      {/* <Chat socket={ socket }/> */}
     </div>
     );
   }

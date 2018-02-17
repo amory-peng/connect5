@@ -161,23 +161,25 @@ class Board extends React.Component {
   }
 
   renderGrid() {
-    const out = [];
-    let count = 0;
+    let out = [];
     for (let i = 0; i < this.gridSize; i++ ) {
+      let row = [];
       for (let j = 0; j < this.gridSize; j++ ) {
-        out.push(
-          <li key={count}>
+        row.push(
+          <li key={j}>
             <Tile
               value={this.state.grid[i][j]}
               pos={[i,j]}
-              onClick={ () => this.handleClick([i,j]) }
+              onClick={() => this.handleClick([i,j])}
             />
           </li>
         );
-        count += 1;
       }
+      out.push(<ul id={`test${i}`} className="row" key={i}>{row}</ul>);
     }
     return out;
+
+
   }
 
   render() {
