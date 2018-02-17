@@ -190,12 +190,12 @@ class Board extends React.Component {
     }
 
     let buttons = <div className="buttonContainer">
-      <div className="button" onClick={ this.resetGrid.bind(this) }>
+      <button className="button" onClick={ this.resetGrid.bind(this) }>
         Reset
-      </div>
-      <div className="button" onClick={ this.resyncGrid.bind(this) }>
+      </button>
+      <button className="button" onClick={ this.resyncGrid.bind(this) }>
         Resync
-      </div>
+      </button>
     </div>;
     return(
       <div className="boardContainer">
