@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 class ChatForm extends React.Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class ChatForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.setState({ text: "" });
-    this.props.action( this.state.text );
+    this.props.action(this.state.text);
   }
 
   render() {
@@ -26,17 +26,20 @@ class ChatForm extends React.Component {
       placeholder = "Enter username...";
     }
 
-    return(
-      <form className="chatForm" onSubmit={ this.handleSubmit }>
-        <input type="text"
-               className="chatForm__input"
-               value={ this.state.text }
-               placeholder={ placeholder }
-               onChange={ this.handleChange }>
-        </input>
-        <input type="submit"
-               value={ this.props.actionLabel }
-               className="chatForm__submit"/>
+    return (
+      <form className="chatForm" onSubmit={this.handleSubmit}>
+        <input
+          type="text"
+          className="chatForm__input"
+          value={this.state.text}
+          placeholder={placeholder}
+          onChange={this.handleChange}
+        />
+        <input
+          type="submit"
+          value={this.props.actionLabel}
+          className="chatForm__submit"
+        />
       </form>
     );
   }

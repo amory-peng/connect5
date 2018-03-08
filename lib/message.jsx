@@ -1,13 +1,11 @@
-import React from 'react';
+import React from "react";
 
-class Message extends React.Component {
-  render() {
-    let userName = this.props.msg.userName;
-    let messageText = this.props.msg.messageText;
-    return(
-      <div className="message"> { userName }: { messageText }</div>
-    );
-  }
-}
-
+const Message = ({ msg }) => {
+  return (
+    <div className="message">
+      {" "}
+      {msg.userName}: {msg.messageText}
+    </div>
+  );
+};
 export default Message;

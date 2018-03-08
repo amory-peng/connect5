@@ -1,4 +1,4 @@
-@import url('reset.css');
+@import url("reset.css");
 
 * {
   box-sizing: border-box;
@@ -10,9 +10,8 @@ body {
 .container {
   display: flex;
   align-items: center;
-  flex-flow: column;
-  justify-content: center;
-
+  flex-flow: row wrap;
+  justify-content: space-between;
 }
 
 .boardContainer {
@@ -26,9 +25,7 @@ body {
 
 .gameContainer {
   flex-flow: row;
-  justify-content: space-between;
-  height: 100%;
-  width: 100%;
+  flex: 1;
 }
 
 .board {
@@ -102,13 +99,13 @@ div[class*="tile"] {
   background: white;
 }
 
-
 .chatContainer {
   display: flex;
   flex-flow: column;
+  align-self: flex-end;
   height: 100vh;
   width: 350px;
-  border: 2px solid black;
+  border: 1px solid black;
 }
 
 .chatForm {

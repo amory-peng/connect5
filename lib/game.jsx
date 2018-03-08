@@ -1,24 +1,21 @@
-import React from 'react';
-import classNames from 'classnames';
-import Board from './board';
-// import Chat from './chat';
+import React from "react";
+import classNames from "classnames";
+import Board from "./board";
+import Chat from "./chat";
 
 const socket = io();
 
-class Game extends React.Component {
-  constructor() {
-    super();
-  }
+const Game = () => {
+  const gameClass = classNames("container", "gameContainer");
+  return (
+    <div className="container">
+      <div className="gameContainer">
+        <Board socket={socket} />
+      </div>
 
-  render() {
-    let gameClass = classNames("container", "gameContainer");
-    return(
-    <div className={ gameClass }>
-      <Board socket={ socket }/>
-      {/* <Chat socket={ socket }/> */}
+      <Chat socket={socket} />
     </div>
-    );
-  }
-}
+  );
+};
 
 export default Game;

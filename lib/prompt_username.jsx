@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
 class PromptUserName extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { name: '' };
+    this.state = { name: "" };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -19,16 +19,16 @@ class PromptUserName extends React.Component {
 
   render() {
     return (
-      <form onSubmit={ this.handleSubmit }>
-        <input type="text"
-               name="userName"
-               placeholder="Enter username..."
-               onChange={ this.handleChange }
-               >
-        </input>
+      <form onSubmit={this.handleSubmit}>
+        <input
+          type="text"
+          name="userName"
+          placeholder="Enter username..."
+          onChange={this.handleChange}
+        />
         <input type="submit" value="Submit" />
       </form>
-    )
+    );
   }
 }
 

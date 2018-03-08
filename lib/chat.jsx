@@ -1,7 +1,7 @@
-import React from 'react';
-import PromptUserName from './prompt_username';
-import ChatForm from './chat_form';
-import Message from './message';
+import React from "react";
+import PromptUserName from "./prompt_username";
+import ChatForm from "./chat_form";
+import Message from "./message";
 
 class Chat extends React.Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class Chat extends React.Component {
 
   componentWillMount() {
     //socket stuff
-    this.socket.on("receiveMessage", (msg) => {
+    this.socket.on("receiveMessage", msg => {
       let newMessages = this.state.messages.slice(0);
       newMessages.push(msg);
       this.setState({ messages: newMessages });
@@ -26,12 +26,10 @@ class Chat extends React.Component {
   }
 
   renderChatForm() {
-    if( this.state.userName === "" ) {
-      return <ChatForm action={ this.setUserName }
-                       actionLabel="Submit" />
+    if (this.state.userName === "") {
+      return <ChatForm action={this.setUserName} actionLabel="Submit" />;
     } else {
-      return <ChatForm action={ this.sendMessage }
-                        actionLabel="Send"/>
+      return <ChatForm action={this.sendMessage} actionLabel="Send" />;
     }
   }
 
@@ -46,13 +44,21 @@ class Chat extends React.Component {
   }
 
   sendMessage(msg) {
-    let message = { userName: this.state.userName, messageText: msg, room: this.room };
+    let message = {
+      userName: this.state.userName,
+      messageText: msg,
+      room: this.room
+    };
     this.socket.emit("sendMessage", message);
   }
 
   renderMessages() {
     let messages = this.state.messages.map((message, idx) => {
-      return <li className="messageContainer" key={ idx }><Message msg={ message } /></li>;
+      return (
+        <li className="messageContainer" key={idx}>
+          <Message msg={message} />
+        </li>
+      );
     });
     return messages;
   }
@@ -61,15 +67,13 @@ class Chat extends React.Component {
     window.chatState = this.state;
     let welcomeText;
     if (this.state.userName) {
-      welcomeText = <div>Hi { this.state.userName }!</div>;
+      welcomeText = <div>Hi {this.state.userName}!</div>;
     }
 
-    return(
+    return (
       <div className="chatContainer">
-        <ul className="messageList">
-          { this.renderMessages() }
-        </ul>
-        { this.renderChatForm() }
+        <ul className="messageList">{this.renderMessages()}</ul>
+        {this.renderChatForm()}
       </div>
     );
   }

@@ -1,7 +1,7 @@
-import React from 'react';
-import Tile from './tile';
-import { hashHistory } from 'react-router';
-import { GRID_SIZE } from '../vars';
+import React from "react";
+import Tile from "./tile";
+import { hashHistory } from "react-router";
+import { GRID_SIZE } from "../vars";
 //
 
 class Board extends React.Component {
@@ -11,16 +11,17 @@ class Board extends React.Component {
     this.winCount = 5;
     this.room = location.pathname;
     this.socket = this.props.socket;
-    this.state = { currentPlayer: "X",
-                   grid: this.makeGrid(),
-                   winner: null,
-                  };
+    this.state = {
+      currentPlayer: "X",
+      grid: this.makeGrid(),
+      winner: null
+    };
   }
 
   componentWillMount() {
     //socket stuff here
-    this.socket.emit('board', this.room);
-    this.socket.on('currentGrid', grid => {
+    this.socket.emit("board", this.room);
+    this.socket.on("currentGrid", grid => {
       this.setState({ grid }, this.getCurrentPlayer);
     });
 
@@ -34,7 +35,7 @@ class Board extends React.Component {
   }
 
   componentWillUnmount() {
-    this.socket.emit('disconnect', this.room);
+    this.socket.emit("disconnect", this.room);
   }
 
   getCurrentPlayer() {
@@ -47,7 +48,7 @@ class Board extends React.Component {
     });
     console.log(count);
     let currentPlayer;
-    currentPlayer = (count % 2 === 0) ? "X" : "O";
+    currentPlayer = count % 2 === 0 ? "X" : "O";
     this.setState({ currentPlayer });
   }
 
@@ -57,9 +58,9 @@ class Board extends React.Component {
     const newGrid = this.state.grid.slice(0);
     newGrid[x][y] = this.state.currentPlayer;
     const nextPlayer = msg.mark === "X" ? "O" : "X";
-    this.setState({ grid: newGrid, currentPlayer: nextPlayer },
-      ()=> { this.findWinner(x,y); }
-    );
+    this.setState({ grid: newGrid, currentPlayer: nextPlayer }, () => {
+      this.findWinner(x, y);
+    });
   }
 
   handleClick(pos) {
@@ -67,22 +68,29 @@ class Board extends React.Component {
     const y = pos[1];
     const currentPlayer = this.state.currentPlayer;
     if (this.state.grid[x][y] === " ") {
-      this.socket.emit( "boardChange",
-        { pos, mark: this.state.currentPlayer, room: this.room });
-      this.socket.emit("sendMessage",
-        { userName: currentPlayer, messageText: `selected ${pos}`, room: this.room });
+      this.socket.emit("boardChange", {
+        pos,
+        mark: this.state.currentPlayer,
+        room: this.room
+      });
+      this.socket.emit("sendMessage", {
+        userName: currentPlayer,
+        messageText: `selected ${pos}`,
+        room: this.room
+      });
     }
   }
 
-  findWinner(x,y) {
-    let count = Math.max(...[
-      this.check(x,y,"row"),
-      this.check(x,y,"col"),
-      this.check(x,y,"dia"),
-      this.check(x,y,"antiDia")
-    ]);
+  findWinner(x, y) {
+    let count = Math.max(
+      ...[
+        this.check(x, y, "row"),
+        this.check(x, y, "col"),
+        this.check(x, y, "dia"),
+        this.check(x, y, "antiDia")
+      ]
+    );
     if (count === this.winCount) {
-
       console.log("winner is", this.state.grid[x][y]);
       let newWinner = this.state.grid[x][y];
       this.setState({ winner: newWinner });
@@ -91,15 +99,15 @@ class Board extends React.Component {
   }
 
   inBounds(x, y) {
-    return (x > -1 && x < this.gridSize) && (y > -1 && y < this.gridSize);
+    return x > -1 && x < this.gridSize && (y > -1 && y < this.gridSize);
   }
 
-  check(x,y,dir) {
+  check(x, y, dir) {
     let grid = this.state.grid;
     let count = 1;
     let deltaX = 0;
     let deltaY = 0;
-    switch(dir) {
+    switch (dir) {
       case "row":
         deltaY = 1;
         break;
@@ -120,7 +128,10 @@ class Board extends React.Component {
     //go foward;
     let x1 = x;
     let y1 = y;
-    while (this.inBounds(x1+deltaX,y1+deltaY) && grid[x1][y1] === grid[x1+deltaX][y1+deltaY]) {
+    while (
+      this.inBounds(x1 + deltaX, y1 + deltaY) &&
+      grid[x1][y1] === grid[x1 + deltaX][y1 + deltaY]
+    ) {
       count += 1;
       x1 += deltaX;
       y1 += deltaY;
@@ -128,7 +139,10 @@ class Board extends React.Component {
     //gobackward
     x1 = x;
     y1 = y;
-    while (this.inBounds(x1-deltaX,y1-deltaY) && grid[x1][y1] === grid[x1-deltaX][y1-deltaY]) {
+    while (
+      this.inBounds(x1 - deltaX, y1 - deltaY) &&
+      grid[x1][y1] === grid[x1 - deltaX][y1 - deltaY]
+    ) {
       count += 1;
       x1 -= deltaX;
       y1 -= deltaY;
@@ -151,65 +165,65 @@ class Board extends React.Component {
   }
 
   resetGrid() {
-    this.setState({ winner: null}, () => {
-      this.socket.emit('reset', this.room);
+    this.setState({ winner: null }, () => {
+      this.socket.emit("reset", this.room);
     });
   }
 
   resyncGrid() {
-    this.socket.emit('resync', this.room);
+    this.socket.emit("resync", this.room);
   }
 
   renderGrid() {
     let out = [];
-    for (let i = 0; i < this.gridSize; i++ ) {
+    for (let i = 0; i < this.gridSize; i++) {
       let row = [];
-      for (let j = 0; j < this.gridSize; j++ ) {
+      for (let j = 0; j < this.gridSize; j++) {
         row.push(
           <li key={j}>
             <Tile
               value={this.state.grid[i][j]}
-              pos={[i,j]}
-              onClick={() => this.handleClick([i,j])}
+              pos={[i, j]}
+              onClick={() => this.handleClick([i, j])}
             />
           </li>
         );
       }
-      out.push(<ul id={`test${i}`} className="row" key={i}>{row}</ul>);
+      out.push(
+        <ul id={`test${i}`} className="row" key={i}>
+          {row}
+        </ul>
+      );
     }
     return out;
-
-
   }
 
   render() {
     window.state = this.state;
     let winText;
     if (this.state.winner) {
-      winText = <div>Winner is { this.state.winner }!</div>;
+      winText = <div>Winner is {this.state.winner}!</div>;
     }
 
-    let buttons = <div className="buttonContainer">
-      <button className="button" onClick={ this.resetGrid.bind(this) }>
-        Reset
-      </button>
-      <button className="button" onClick={ this.resyncGrid.bind(this) }>
-        Resync
-      </button>
-    </div>;
-    return(
+    let buttons = (
+      <div className="buttonContainer">
+        <button className="button" onClick={this.resetGrid.bind(this)}>
+          Reset
+        </button>
+        <button className="button" onClick={this.resyncGrid.bind(this)}>
+          Resync
+        </button>
+      </div>
+    );
+    return (
       <div className="boardContainer">
         <div className="info-container">
-          <div> Current Player: { this.state.currentPlayer }</div>
-          { buttons }
+          <div> Current Player: {this.state.currentPlayer}</div>
+          {buttons}
         </div>
-        <ul className="board">
-          { this.renderGrid() }
-        </ul>
+        <ul className="board">{this.renderGrid()}</ul>
 
-        <div>
-          { winText }
-        </div>
+        <div>{winText}</div>
       </div>
     );
   }
