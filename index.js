@@ -8,7 +8,6 @@ var path = require("path");
 
 //store board state in server LEL
 const boards = {};
-let playerCount = 0;
 
 const makeGrid = function() {
   const grid = [];
@@ -31,7 +30,6 @@ app.get("*", (req, res) => {
 
 io.on("connection", socket => {
   socket.on("board", room => {
-    playerCount += 1;
     socket.join(room);
     if (boards[room]) {
       io.to(room).emit("currentGrid", boards[room]);
@@ -40,7 +38,7 @@ io.on("connection", socket => {
     }
     io.to(room).emit("receiveMessage", {
       userName: "Server",
-      messageText: `player count: ${playerCount}`,
+      messageText: `player joined!`,
       room
     });
   });
@@ -68,10 +66,9 @@ io.on("connection", socket => {
   });
 
   socket.on("disconnect", room => {
-    playerCount -= 1;
     io.to(room).emit("receiveMessage", {
       userName: "Server",
-      messageText: `player count: ${playerCount}`,
+      messageText: `player disconnected!`,
       room
     });
   });
