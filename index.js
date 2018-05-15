@@ -1,13 +1,14 @@
-'use strict';
-var GRID_SIZE = require('./vars').GRID_SIZE;
-var express = require('express');
+"use strict";
+var GRID_SIZE = require("./vars").GRID_SIZE;
+var express = require("express");
 var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var path = require('path');
+var http = require("http").Server(app);
+var io = require("socket.io")(http);
+var path = require("path");
 
 //store board state in server LEL
 const boards = {};
+let playerCount = 0;
 
 const makeGrid = function() {
   const grid = [];
@@ -23,59 +24,59 @@ const makeGrid = function() {
 
 app.use(express.static(__dirname));
 
-app.get('*', (req, res) => {
+app.get("*", (req, res) => {
   console.log(req.params);
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
-io.on('connection', (socket) => {
-  let playerCount = 0;
-  socket.on('board', (room) => {
+io.on("connection", socket => {
+  socket.on("board", room => {
     playerCount += 1;
     socket.join(room);
     if (boards[room]) {
-      io.to(room).emit('currentGrid', boards[room]);
+      io.to(room).emit("currentGrid", boards[room]);
     } else {
       boards[room] = makeGrid();
     }
-    io.to(room).emit('receiveMessage',
-                     { userName: "Server",
-                       messageText: `player count: ${playerCount}`,
-                       room });
+    io.to(room).emit("receiveMessage", {
+      userName: "Server",
+      messageText: `player count: ${playerCount}`,
+      room
+    });
   });
 
-  socket.on('boardChange', (msg) => {
+  socket.on("boardChange", msg => {
     console.log(msg);
     const x = msg.pos[0];
     const y = msg.pos[1];
     boards[msg.room][x][y] = msg.mark;
-    io.to(msg.room).emit('boardChange', msg);
+    io.to(msg.room).emit("boardChange", msg);
   });
 
-  socket.on('reset', (room) => {
+  socket.on("reset", room => {
     boards[room] = makeGrid();
-    io.to(room).emit('reset');
+    io.to(room).emit("reset");
   });
 
-  socket.on('resync', (room) => {
-    io.to(room).emit('currentGrid', boards[room])
+  socket.on("resync", room => {
+    io.to(room).emit("currentGrid", boards[room]);
   });
 
-  socket.on('sendMessage', (msg) => {
+  socket.on("sendMessage", msg => {
     console.log(msg);
-    io.to(msg.room).emit('receiveMessage', msg);
+    io.to(msg.room).emit("receiveMessage", msg);
   });
 
-  socket.on('disconnect', (room) => {
+  socket.on("disconnect", room => {
     playerCount -= 1;
-    io.to(room).emit('receiveMessage',
-                     { userName: "Server",
-                       messageText: `player count: ${playerCount}`,
-                       room });
+    io.to(room).emit("receiveMessage", {
+      userName: "Server",
+      messageText: `player count: ${playerCount}`,
+      room
+    });
   });
 });
 
-
 http.listen(process.env.PORT || 4000, () => {
-  console.log('listening on *:4000');
+  console.log("listening on *:4000");
 });
